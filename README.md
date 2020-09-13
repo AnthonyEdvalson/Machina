@@ -42,7 +42,7 @@ Machina can gather, store, and process large datasets on any entity, the intende
 
 Square brackets are for entities that get data from other entities. For example, business data will be collected from APIs, one of these APIs is used to get website information from the current Machina system.
 
-This “recursive” data is an important feature of Machina, it allows computed data to be shared between separate projects. This minimizes the amount of code reuse, since that that is gathered for one purpose can be used elsewhere.
+This “recursive” data is an important feature of Machina, it allows computed data to be shared between separate projects. This minimizes the amount of code needed, since data that is gathered for one purpose can be used elsewhere.
 
 
 
@@ -56,11 +56,15 @@ Vertex is a management system that ties together all nodes in the system from va
 
 ## Layers
 
+Layers are an abstract structure of the application. Data flows from one layer to the next, becoming more refined in the process. There are 6 layers in Machina, each detailed in this document.
+
 ## Nodes
+
+Node are the workers of Machina, they request tasks to collect, process, and store data.
 
 ## Data
 
-Data is stored in Scylla, a nosql database based on Cassandra. The data is actually stored in two separate databases. Each with similar tables and structure. One is the “dump” database, the other is “clean”. 
+Data is stored in Scylla, a nosql database based on Cassandra, but is much more optimized. The database is split into two databases. One is the “dump” database, the other is “clean”. 
 
 Dump is a place where large volumes of raw information is stored temporarily. It may have many missing fields, and in general is not efficient to work with. It stores information from a particular query, along with the time stamp for when the data was collected.
 
@@ -75,16 +79,12 @@ When a row is added to the dump, the entire row has only come from a single quer
  Global utilities are tools shared among multiple layers
 
 
-
 ## Events
 
-Events provide a simple tool to implement a publish-subscribe system. An event is an object that can be subscribed to. When subscribing, a callback function must be passed in. This function will then be called when the event is invoked. 
-
+Events provide a simple tool to implement a publish-subscribe system. An event is an object that can be subscribed to. When subscribing, a callback function must be passed in. This function will then be called when the event is invoked. This functionality is not built into Python, so it has been added here
 
 
 ## Socket Communication (com)
-
-Python, C++
 
 Socket communications are how all nodes communicate. It provides a uniform mode of communication that ties together the entire application. Because of this, it needs to be flexible and easy to send and receive information. Com provides various tools to help with this process
 
@@ -136,13 +136,13 @@ class ExampleServer(SmartServer):
         return value
     
     def disconnect(req)
-    	# Do work
+    	  # Do work
         return True
         
     
 def main()
-	c = Config()
-	server = ExampleServer(c.get_str("host"),
+	  c = Config()
+	  server = ExampleServer(c.get_str("host"),
                            c.get_int("port"),
                            c.get_str("name"))
     
@@ -156,11 +156,9 @@ SmartServer will take care of nearly all the server details. In this case, runni
 
 ## Configuration Parsing
 
-Python, C++
+​Configuration parsing is used at all levels of the program and defines all constant parameters that are used during execution, as well as some source code. Configuration files are designed to be interchangeable, using a different config file for another project shouldn't cause any errors for missing code.
 
-​	Configuration parsing is used at all levels of the program and defines all constant parameters that are used during execution, as well as some source code. Configuration files are designed to be interchangeable,  using a different config file for another project shouldn't cause any errors for missing code.
-
-​	Configurations are stored in a folder with the extension, with a hierarchy with the following structure:
+Configurations are stored in a folder with the extension, with a hierarchy with the following structure:
 
 ```
 Config
@@ -206,9 +204,9 @@ Config
 
 Python
 
-​	Data Sharing provides some basic tools to get and store state information in a shared location, it is not designed to be high speed or flexible. It only supports a few simple operations. Data Shares can store data in different ways, such as a database or a file.
+​Data Sharing provides some basic tools to get and store state information in a shared location, it is not designed to be high speed or flexible. It only supports a few simple operations. Data Shares can store data in different ways, such as a database or a file.
 
-​	Data Shares are bound to a specific source of data that cannot be changed. For example, a database Data Share picks a database when initialized, and cannot change later. Data Shares are also restricted in the operations they can do, such as get, set, and add. If more complex actions are needed, they can be implemented outside the class, or consider alternatives
+Data Shares are bound to a specific source of data that cannot be changed. For example, a database Data Share picks a database when initialized, and cannot change later. Data Shares are also restricted in the operations they can do, such as get, set, and add. If more complex actions are needed, they can be implemented outside the class, or consider alternatives
 
 
 
@@ -321,15 +319,6 @@ Network: 100 Mb/s
     }
 }
 ```
-
-
-
-### Receiving a task
-
-
-
-### Task Protocol
-
 
 
 ## Machina Tasks
@@ -572,18 +561,14 @@ Data is returned as lists, each list contains exactly one type of data. The Hand
 
 ​	This is where that whole section on series from earlier comes into play. Aggregators can keep track of values over time and make estimates on data when if not available.
 
-
-
 # Layer 3 – Data
 
-​	The Data layer is responsible for storing information long term. Typically this will be in a database.
+​	The Data layer is responsible for storing information long term. Typically this will be in scylla, a simple ORM is provided to store and retrieve data from Scylla.
 
-
-
-# Layer 4 – Compute
+# Layer 4 – Compute (not implemented)
 
 ​	The Compute layer is the most heavily optimized portion of Machina. It needs to be capable of computing large volumes of information in the span of seconds. It gets this data from the Data layer, and provides GPU processing tools to produce results quickly.
 
-# Layer 5 – Interface
+# Layer 5 – Interface (not implemented)
 
-​	The Interface layer is the publicly facing portion of Machina, it uses standard REST API
+​	The Interface layer is the publicly facing portion of Machina, it uses a standard REST API
