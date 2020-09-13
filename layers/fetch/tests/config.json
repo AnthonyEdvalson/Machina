@@ -1,0 +1,12 @@
+{
+  "default": {
+    "node": {
+      "clean_rate": 0.5
+    },
+    "layers": {
+      "fetch": {
+        "modules": ["debug"]
+      }
+    }
+  }
+}

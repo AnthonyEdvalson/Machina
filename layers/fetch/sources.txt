@@ -1,0 +1,11 @@
+nonprofits: https://projects.propublica.org/nonprofits/
+steam / games
+spotify?
+youtube
+cryptocurrencies
+business quarterly statements
+stock prices
+google play
+app store
+websites (similarweb quantcast etc.)
+wikipedia / wikipedia page edits

@@ -1,0 +1,6 @@
+class Aggregator {
+	public:
+		
+	private:
+		
+};

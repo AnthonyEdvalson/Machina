@@ -1,0 +1,30 @@
+{
+  "default": {
+    "vertex": {
+      "default_port": 9000
+    },
+    "node": {
+      "clean_rate": 0.5
+    },
+    "layers": {
+      "layer1": {
+        "resources": {
+          "ram_gb": 1,
+          "cpu_cores": 1,
+          "gpu_cores": 0,
+          "storage_gb": 1,
+          "network_mbs": 1
+        }
+      },
+      "layer2": {
+        "resources": {
+          "ram_gb": 2,
+          "cpu_cores": 2,
+          "gpu_cores": 1,
+          "storage_gb": 2,
+          "network_mbs": 2
+        }
+      }
+    }
+  }
+}

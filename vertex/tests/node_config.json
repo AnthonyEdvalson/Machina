@@ -1,0 +1,13 @@
+{
+  "default": {
+    "vertex_host": "localhost",
+    "vertex_port": 9000,
+    "resources": {
+      "ram_gb": 3,
+      "cpu_cores": 3,
+      "gpu_cores": 3,
+      "storage_gb": 3,
+      "network_mbs": 3
+    }
+  }
+}
