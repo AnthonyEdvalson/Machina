@@ -560,15 +560,3 @@ Data is returned as lists, each list contains exactly one type of data. The Hand
 ​	Aggregators can function is a wide variety of ways, the simplest pass any data they get through unchanged. Others may remember past values and &quot;forward fill&quot; them into nulls. Others may be on a timer and average all data over the span of an hour into one result, and then send that result out.
 
 ​	This is where that whole section on series from earlier comes into play. Aggregators can keep track of values over time and make estimates on data when if not available.
-
-# Layer 3 – Data
-
-​	The Data layer is responsible for storing information long term. Typically this will be in scylla, a simple ORM is provided to store and retrieve data from Scylla.
-
-# Layer 4 – Compute (not implemented)
-
-​	The Compute layer is the most heavily optimized portion of Machina. It needs to be capable of computing large volumes of information in the span of seconds. It gets this data from the Data layer, and provides GPU processing tools to produce results quickly.
-
-# Layer 5 – Interface (not implemented)
-
-​	The Interface layer is the publicly facing portion of Machina, it uses a standard REST API
